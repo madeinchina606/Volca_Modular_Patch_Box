@@ -4,9 +4,9 @@ A single-file web app for drawing and saving patches for the **Korg Volca Modula
 
 ## Features
 
-- Full vector recreation of the patching area, with four themes (device, dark, B&W, paper diagram)
+- Recreation of the patching area, with four themes (device, dark, B&W, paper diagram)
 - Drag-cable patching with snap-to-jack (or click-patching if you prefer)
-- Signal-flow colour coding — audio red, CV blue, gates green
+- Signal-flow colour coding  audio red, CV blue, gates green
 - Save patches by name with notes; export/import as JSON
 - Print or export as PNG (one per patch, or all stacked into one)
 
