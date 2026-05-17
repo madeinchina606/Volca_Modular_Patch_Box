@@ -1,70 +1,34 @@
-# Volca Modular Patch Box
+# Gorka Modular — Patch Box
 
-A single-file web app for drawing, saving, and *playing* patches for the **Korg Volca Modular**. Drag cables, twist knobs, hit ⏻ ON, and play it from your keyboard or the built-in step sequencer.
+A single-file HTML web app that recreates a Gorka Modular-style synthesizer in your browser: drag cables, twist knobs, play it from the keyboard or the built-in step sequencer, and listen through a real Web Audio sound engine.
 
 ## Features
 
-- Full vector recreation of the patching area, with four themes (device, dark, B&W, paper diagram)
-- Drag-cable patching with snap-to-jack — cables route real audio/CV through Web Audio
-- Signal-flow colour coding — audio red, CV blue, gates green
-- **Built-in sound engine** with FM source, wavefolder, AHR + Rise-Fall envelopes, dual LPG, convolution reverb, compressor + saturation on the master bus
-- **Step sequencer** below the patch area — 16 steps by default, expandable / shrinkable in 16-step jumps up to 64, or type any length 1–64 directly
-- Scale-aware sequencer editing — Up/Down snaps the current step's pitch to the active scale and auditions it
-- Floating instructions menu (Patching / Sequencer / Keyboard) — popover that never resizes the patch or sequencer area
-- 7 scales, octave shifting, per-note microtuning
-- Save patches by name with notes; export/import as JSON
-- Print or export as PNG (one per patch, or all stacked into one)
-
-## Sound engine
-
-Hit **⏻ ON** in the header (top right). The engine is a Web Audio educational emulation: carrier + modulator triangle oscillators, frequency modulation, Buchla-style sin-fold wavefolding (oversampled), AHR / Rise-Fall envelopes normalled to LPG A so notes are percussive by default, sample-&-hold from pink noise, dual low-pass gates with coupled VCA + filter response, and a convolution reverb plus BBD-style slap delay for SPACE OUT. The master bus has a high-pass, dynamics compressor, and tanh saturation to keep things musical at loud settings.
-
-The CLOCK knob sets the BPM range from ~56 to ~240 BPM and drives the sequencer tempo.
-
-## Keyboard
-
-**Playing notes**
-- **A W S E D F T G Y H U J K …** — play notes (white & black keys, QWERTY piano)
-- **Z / X** — octave down / up
-- **3–9** — pick scale: Major, Dorian, Phrygian, Lydian, Mixolydian, Minor, Locrian
-- **C** — back to Chromatic
-
-**Sound shaping**
-- **1** — toggle long-envelope mode (×3 attack/release)
-- **2** — randomize per-note microtuning (each MIDI key gets its own random cents)
-- **Shift+2** — clear microtuning back to 12-TET
-- **0** — panic / silence modulation
-
-**Sequencer**
-- **Spacebar** — start / stop the sequencer (also wakes up the audio engine if it was off)
-- **←** / **→** — move the cursor between steps
-- **↑** / **↓** — pitch the current step up / down within the active scale (with current microtuning), plays a quick preview
-- **−** — toggle the current step on / off (captures the most recent note played)
-- **=** — insert a rest (silent step, advance cursor)
-- **`** (backtick) — toggle live recording (or click the **REC** button)
-
-## Sequencer
-
-Sits below the patch area. Each step shows clearly whether it has a note:
-
-- **Dim square** → step is off (no note will play)
-- **Bright square with a yellow LED dot** → step is on and will play its assigned note
-- **Cyan outline + cyan triangle above** → the cursor (your current edit position)
-
-Click any step to toggle it on/off — it captures the most recent note you played. With the cursor on an active step, press any key to live-edit that step's note, or use ↑/↓ to snap up/down within the active scale. Hit **REC** (or `` ` ``) and play notes to fill steps live. **▶** starts/stops the cursor; **−16 / +16** shrink or grow the pattern; the **Len** input takes any value 1–64.
-
-## Instructions menu
-
-The bar below the sequencer has three tabs: **Patching**, **Sequencer**, **Keyboard**. Click one to pop up a floating help panel that overlays without resizing anything. Click the tab again or click anywhere outside the bar to dismiss it.
+- Vector patching area in four themes (device, dark, B&W, paper diagram)
+- Drag-cable patching with snap-to-jack and signal-flow colour coding (audio / CV / gate / mixed)
+- Real-time sound engine: FM source with continuous RATIO, Buchla-style wavefolder, AHR + Rise-Fall envelopes, sample-and-hold, dual low-pass gates, convolution reverb + BBD-style delay, master HPF + compressor + saturation + makeup gain
+- On-panel oscilloscope with **ON / OFF toggle** (save CPU when you don't need it)
+- 1&ndash;64 step sequencer with **Bounce** (ping-pong) and **Stochastic** (probability + scale-aware pitch jitter) modes
+- 28 scales: standard set (modes, pentatonics, blues, diminished, augmented, Japanese) plus 5 microtonal (19-TET, 24-TET, 31-TET, Bohlen-Pierce, Just Intonation) and 8 atonal (Messiaen modes 3&ndash;7, 12-tone row, tritone, clusters)
+- Tonic C&ndash;B selectable; per-note microtuning randomization
+- Three voice modes: Mono, Poly (6 light voices), Poly-Full (6 full FM voices, patches still apply)
+- **Randomize** &mdash; random patch (skips volume) or random sequence in the active scale; keyboard shortcuts `[` patch, `]` sequence, `\` both
+- **Save / Load patches** by name with optional group tags &mdash; create groups, filter by group, browse grouped or filtered views
+- **Pack export / import** &mdash; bundle any selection of patches or whole groups into a single JSON pack file
+- **MIDI** export / import for the sequencer (Standard MIDI File, preserves length)
+- **WAV recording** &mdash; capture master output to a downloadable WAV (filename includes the current BPM)
+- Export panel as PNG or print (single patch or multiple)
 
 ## Usage
 
-1. Download `volca_patch_designer.html`
-2. Open it in any modern browser
-3. Patch away, hit ⏻ ON, press a key
+1. Open `gorka_patch_designer.html` in any modern browser
+2. Press **Enter** or click **&#9211; ON** in the top-right
+3. Patch some cables, press a key, hit **Space** to start the sequencer
 
-No install, no server, no dependencies. To put it on the web just upload that single HTML file to any static host (Netlify, GitHub Pages, your own server). Patches live in your browser's `localStorage` — use **Export JSON** for real backups.
+Click **Help &#9662;** in the header for the full in-app reference (Patching / Sequencer / Keyboard / Modules &amp; sound). It's a draggable popup so you can keep it open while you play.
+
+To put it on the web, just upload the single HTML file &mdash; no install, no server, no dependencies. Patches live in `localStorage`; use **Export Pack** to back them up or share.
 
 ## Note
 
-Not affiliated with Korg lol
+Not affiliated with anyone real. Gorka and Xorg are made up.
