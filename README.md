@@ -27,8 +27,4 @@ Recreation of the Gorka Modular-style synthesizer in your browser: drag cables, 
 
 Click **Help &#9662;** in the header for the full in-app reference (Patching / Sequencer / Keyboard / Modules &amp; sound). It's a draggable popup so you can keep it open while you play.
 
-To put it on the web, just upload the single HTML file &mdash; no install, no server, no dependencies. Patches live in `localStorage`; use **Export Pack** to back them up or share.
-
-## Note
-
 Not affiliated with anyone real. Gorka and Xorg are made up.
