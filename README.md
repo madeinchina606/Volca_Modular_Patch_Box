@@ -1,4 +1,4 @@
-# Gorka Modular — Patch Box
+# Gorka Modular: Semi-Modular Patch Box
 
 Recreation of the Gorka Modular-style synthesizer in your browser: drag cables, twist knobs, play it from the keyboard or the built-in step sequencer, and listen through a real Web Audio sound engine.
 
