@@ -32,15 +32,49 @@ header.bar .spacer,footer.bar .spacer{flex:1;min-width:10px}
 .theme-picker button[data-th="C"]{background:#fff;color:#000}
 .theme-picker button[data-th="D"]{background:#f3f1ea;color:#000}
 .theme-picker button.active{outline:3px solid var(--red);outline-offset:1px}
-main{display:grid;grid-template-columns:minmax(0,1fr) 280px;grid-template-rows:auto auto 1fr;column-gap:14px;row-gap:12px;padding:14px 18px;min-height:0;overflow:hidden}
-.patch-wrap{grid-column:1;grid-row:1;background:var(--bg);border:6px solid #000;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.55),inset 0 0 0 2px #000;overflow:hidden;position:relative;align-self:start}
-#patch-svg{display:block;width:100%;height:auto;touch-action:none;user-select:none}
-.info-bar{grid-column:1;grid-row:2;background:linear-gradient(180deg,var(--silver-1),var(--silver-2));color:var(--navy);border:2px solid var(--navy-d);border-radius:6px;padding:9px 14px;font-size:11px;line-height:1.45;letter-spacing:.2px;display:grid;grid-template-columns:repeat(2,1fr);column-gap:18px;row-gap:3px;box-shadow:0 3px 0 #000,0 6px 14px rgba(0,0,0,.4);align-self:start}
+main{display:grid;grid-template-columns:minmax(0,1fr) 280px;grid-template-rows:minmax(0,1fr) auto auto;column-gap:14px;row-gap:12px;padding:14px 18px;min-height:0;overflow:hidden}
+.patch-wrap{grid-column:1;grid-row:1;background:var(--bg);border:6px solid #000;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.55),inset 0 0 0 2px #000;overflow:hidden;position:relative;align-self:stretch;display:flex;align-items:center;justify-content:center;min-height:0}
+#patch-svg{display:block;width:100%;height:100%;max-width:100%;max-height:100%;touch-action:none;user-select:none}
+.info-bar{grid-column:1;grid-row:3;background:linear-gradient(180deg,var(--silver-1),var(--silver-2));color:var(--navy);border:2px solid var(--navy-d);border-radius:6px;padding:6px 10px;font-size:11px;line-height:1.45;letter-spacing:.2px;box-shadow:0 3px 0 #000,0 6px 14px rgba(0,0,0,.4);align-self:start;display:flex;flex-direction:column;gap:6px;position:relative}
+.info-tabs{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.info-tab{appearance:none;background:linear-gradient(180deg,#f3f4fa,#cdd2e3);color:var(--navy);border:1.5px solid var(--navy-d);border-radius:4px;padding:5px 11px;font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+.info-tab:hover{filter:brightness(1.05)}
+.info-tab.active{background:linear-gradient(180deg,var(--navy),var(--navy-d));color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.15)}
+.info-legend{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--navy)}
+.info-legend .dot{display:inline-block;width:14px;height:4px;border-radius:2px;vertical-align:middle;margin-right:3px}
+/* Floating overlay so opening it does NOT shrink the patch / sequencer areas */
+.info-panel{display:none;position:absolute;left:0;right:0;bottom:calc(100% + 8px);z-index:60;background:#fff;border:1.5px solid var(--navy-d);border-radius:6px;padding:11px 14px;font-size:11px;line-height:1.55;box-shadow:0 -6px 24px rgba(0,0,0,.45),0 0 0 1px rgba(0,0,0,.2);max-height:260px;overflow-y:auto}
+.info-panel.open{display:block}
+.info-panel::after{content:'';position:absolute;left:var(--arrow-x,18px);bottom:-8px;width:14px;height:14px;background:#fff;border-right:1.5px solid var(--navy-d);border-bottom:1.5px solid var(--navy-d);transform:rotate(45deg)}
+.info-panel .row{margin-bottom:3px}
+.info-panel b{color:var(--navy);font-weight:800;letter-spacing:.3px}
+.info-panel .kbd{display:inline-block;background:#fff;border:1px solid var(--navy);border-radius:3px;padding:0 6px;font-size:10px;font-weight:800;font-family:inherit;color:var(--navy);margin:0 2px}
+#sequencer{grid-column:1;grid-row:2;background:linear-gradient(180deg,#0a1240,#050a28);border:3px solid #000;border-radius:6px;padding:10px 12px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 0 #000,0 8px 20px rgba(0,0,0,.5);align-self:start}
+.seq-transport{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.seq-btn{appearance:none;background:linear-gradient(180deg,#4673ff,#1f3eb8);color:#fff;border:1.5px solid #000;border-radius:3px;font-weight:800;font-size:11px;letter-spacing:1px;padding:8px 10px;cursor:pointer;text-transform:uppercase;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 0 8px rgba(70,115,255,.4)}
+.seq-btn:hover{filter:brightness(1.15)}
+.seq-btn.active{background:linear-gradient(180deg,#ff5860,#d8162b);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 0 10px rgba(255,80,90,.6)}
+.seq-len{color:#cfd6ff;font-size:10px;font-weight:700;letter-spacing:1.5px;margin-left:6px;text-transform:uppercase;display:flex;align-items:center;gap:4px}
+.seq-len input{width:48px;background:#000;color:#fff;border:1px solid #4673ff;border-radius:3px;padding:4px 6px;font-size:12px;font-weight:800;text-align:center;font-family:inherit}
+.seq-steps{display:flex;flex:1;gap:3px;overflow-x:auto;padding:2px 0}
+.step{flex:1;min-width:30px;height:38px;border:1.5px solid #000;border-radius:2px;font-weight:900;font-size:13px;cursor:pointer;color:#000;font-family:Helvetica,Arial,sans-serif;padding:0;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 -2px 0 rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.4);position:relative}
+/* OFF state — dim / desaturated so it's clear no note is set */
+.step.red{background:linear-gradient(180deg,#7a2530,#581018);color:rgba(255,255,255,.32)}
+.step.white{background:linear-gradient(180deg,#b8b8b8,#8e8e8e);color:rgba(0,0,0,.40)}
+/* ON state (has a note) — bright fills */
+.step.on.red{background:linear-gradient(180deg,#ff5560,#d8162b);color:#fff}
+.step.on.white{background:linear-gradient(180deg,#ffffff,#dedede);color:#000}
+.step.on{box-shadow:inset 0 -2px 0 rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.5),0 0 6px rgba(255,235,59,.5)}
+/* Yellow LED dot in the corner whenever a step HAS a note */
+.step.on::after{content:'';position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:#ffeb3b;box-shadow:0 0 7px #ffeb3b,inset 0 0 2px rgba(180,130,0,.7)}
+/* Cursor — cyan outline + downward-pointing triangle ABOVE the step. Distinct from on/off so both states are readable simultaneously. */
+.step.cur{outline:2.5px solid #4dd0ff;outline-offset:-2px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.4),0 0 12px rgba(77,208,255,.85)}
+.step.cur::before{content:'';position:absolute;left:50%;transform:translateX(-50%);top:-9px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid #4dd0ff;filter:drop-shadow(0 0 4px rgba(77,208,255,.9))}
 .info-bar .line{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .info-bar .dot{display:inline-block;width:14px;height:4px;border-radius:2px;vertical-align:middle}
 .info-bar .sep{color:var(--navy-s);margin:0 4px}
 .info-bar b{color:var(--navy);font-weight:800;letter-spacing:.4px}
-aside.side{grid-column:2;grid-row:1 / 4;display:flex;flex-direction:column;gap:14px;min-height:0;overflow:hidden}
+aside.side{grid-column:2;grid-row:1 / 4;display:flex;flex-direction:column;gap:14px;min-height:0;overflow:hidden;align-self:stretch}
 .card{background:linear-gradient(180deg,var(--silver-1),var(--silver-2));color:var(--navy);border-radius:6px;padding:13px 14px;border:2px solid var(--navy-d);box-shadow:0 4px 0 #000,0 8px 22px rgba(0,0,0,.5);flex-shrink:0}
 .card.scroll{display:flex;flex-direction:column;min-height:0;flex:1 1 0%}
 .card h3{margin:0 0 10px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:6px}
@@ -117,6 +151,7 @@ footer.bar{color:var(--silver-3);font-size:10px;padding:10px 22px;border-top:1px
   <label class="toggle" id="click-toggle"><span>Click Patching</span><span class="sw"></span></label>
   <label class="toggle on" id="drag-toggle" title="Press Ctrl to toggle"><span>Drag Cable<span class="kbd">CTRL</span></span><span class="sw"></span></label>
   <div class="spacer"></div>
+  <button class="btn red" id="btn-play" title="Power the sound engine on / off (browser audio requires a gesture)">⏻ ON</button>
   <button class="btn ghost" id="btn-clear">Clear Cables</button>
   <button class="btn" id="btn-export-img">Export PNG</button>
   <button class="btn" id="btn-print">Print</button>
@@ -140,12 +175,44 @@ footer.bar{color:var(--silver-3);font-size:10px;padding:10px 22px;border-top:1px
    </svg>
   </div>
   <div class="info-bar">
-   <div class="line"><span class="dot" style="background:var(--fa)"></span>Audio<span class="sep">·</span><span class="dot" style="background:var(--fc)"></span>CV / Mod<span class="sep">·</span><span class="dot" style="background:var(--ft)"></span>Gate / Trig<span class="sep">·</span><span class="dot" style="background:var(--fm)"></span>Mixed</div>
-   <div class="line"><b>Signal Flow Colors:</b> when on, cables are tinted by signal type. Off → random colour per cable.</div>
-   <div class="line"><b>Patching:</b> drag from any jack to another (drop on empty paper to discard). <b>Click Patching:</b> two-click mode.</div>
-   <div class="line"><b>Drag Cable</b> (or press <span style="background:#fff;border:1px solid var(--navy);border-radius:3px;padding:1px 5px;font-size:9px;font-weight:800">CTRL</span>): grab a connected jack to re-route. Off → cables locked, multiple per jack allowed.</div>
-   <div class="line"><b>Cables:</b> click cable body to delete.</div>
-   <div class="line"><b>Save matches by name.</b> Same name overwrites that patch; new name creates a new one. Patches live in your browser's local storage — Export JSON to back them up.</div>
+   <div class="info-tabs">
+    <button class="info-tab" data-panel="patching">Patching ▾</button>
+    <button class="info-tab" data-panel="sequencer">Sequencer ▾</button>
+    <button class="info-tab" data-panel="keyboard">Keyboard ▾</button>
+    <span class="info-legend">
+     <span><span class="dot" style="background:var(--fa)"></span>Audio</span>
+     <span><span class="dot" style="background:var(--fc)"></span>CV</span>
+     <span><span class="dot" style="background:var(--ft)"></span>Gate</span>
+     <span><span class="dot" style="background:var(--fm)"></span>Mixed</span>
+    </span>
+   </div>
+   <div class="info-panel" id="info-patching">
+    <div class="row"><b>Drag patching</b> — drag from any jack to another; drop on empty paper to cancel.</div>
+    <div class="row"><b>Click patching</b> — two-click mode (toggle in header).</div>
+    <div class="row"><b>Drag Cable</b> (or hold <span class="kbd">CTRL</span>) — grab a connected jack to re-route; off → cables locked, multiple per jack allowed.</div>
+    <div class="row"><b>Delete cable</b> — click its body.</div>
+    <div class="row"><b>Signal-flow colours</b> — when on, cables are tinted by signal type; off → random colour.</div>
+    <div class="row"><b>Save patches by name</b> — same name overwrites, new name creates a new one. Patches live in local storage; use Export JSON for backups.</div>
+   </div>
+   <div class="info-panel" id="info-sequencer">
+    <div class="row"><b>Steps</b> — click any step to toggle on/off; the highlighted-yellow step plays at the cursor.</div>
+    <div class="row"><b><span class="kbd">SPACE</span></b> — start / stop the sequencer (also wakes up the audio engine).</div>
+    <div class="row"><b><span class="kbd">←</span> <span class="kbd">→</span></b> — move the cursor between steps.</div>
+    <div class="row"><b><span class="kbd">↑</span> <span class="kbd">↓</span></b> — pitch the current step up / down within the active scale (with current microtuning), plays a preview.</div>
+    <div class="row"><b><span class="kbd">−</span></b> — toggle current step on/off (captures the most recent note).</div>
+    <div class="row"><b><span class="kbd">=</span></b> — insert a rest (silent step, advance cursor).</div>
+    <div class="row"><b><span class="kbd">`</span></b> or <b>REC</b> button — live-record: any key you play fills the current step and advances.</div>
+    <div class="row"><b>Edit a step</b> — click it to highlight, then press a key to set its note (or use <span class="kbd">↑</span> <span class="kbd">↓</span>).</div>
+    <div class="row"><b>−16 / +16</b> — shrink or grow the pattern by 16. <b>Len</b> input — type any length 1–64. Tempo follows the CLOCK knob.</div>
+   </div>
+   <div class="info-panel" id="info-keyboard">
+    <div class="row"><b><span class="kbd">A W S E D F T G Y H U J K…</span></b> — play notes (QWERTY piano, white & black keys).</div>
+    <div class="row"><b><span class="kbd">Z</span> / <span class="kbd">X</span></b> — octave down / up.</div>
+    <div class="row"><b><span class="kbd">3</span>–<span class="kbd">9</span></b> — Major, Dorian, Phrygian, Lydian, Mixolydian, Minor, Locrian. <b><span class="kbd">C</span></b> — Chromatic.</div>
+    <div class="row"><b><span class="kbd">1</span></b> — toggle Long-envelope mode (×3 attack/release).</div>
+    <div class="row"><b><span class="kbd">2</span></b> — randomize per-note microtuning. <b><span class="kbd">Shift</span>+<span class="kbd">2</span></b> — clear microtuning.</div>
+    <div class="row"><b><span class="kbd">0</span></b> — panic: silence modulation.</div>
+   </div>
   </div>
   <aside class="side">
    <div class="card">
@@ -325,7 +392,7 @@ const KNOBS=[
  {id:'k.mod',   x:300,y:475,r:32,color:'red',   label:'MOD',  default:0.4},
  {id:'k.fold',  x:220,y:600,r:32,color:'red',   label:'FOLD', default:0.0},
  // CLOCK knob (in top strip, left of pins)
- {id:'k.clock', x:480,y:160,r:24,color:'silver',label:'CLOCK',min:56,max:240,default:120},
+ {id:'k.clock', x:480,y:160,r:24,color:'silver',label:'CLOCK',default:0.348},
  // FUNCTIONS (+50)
  {id:'k.attack', x:575,y:455,r:32,color:'red',label:'ATTACK', default:0.1},
  {id:'k.release',x:575,y:570,r:32,color:'red',label:'RELEASE',default:0.4},
@@ -873,18 +940,665 @@ $('#btn-export-go').addEventListener('click',()=>{
 });
 
 setTheme('A');renderList();setStatus('ready');
-</script>
-</body></html>
-);setStatus('ready');
-</script>
-</body></html>
-dd(p);}});
- if(!patches.length){alert('Select at least one patch to export.');return;}
- $('#export-dialog').hidden=true; setStatus('exporting…'); exportPatches(patches, exportMode);
+
+
+/* ============================================================
+   VOLCA MODULAR — sound engine (educational emulation)
+   ============================================================ */
+const AU={ctx:null,on:false,master:null,src:null,clk:null,wog:null,f1:null,f2:null,lpg:null,fx:null,jacks:{},conns:[],longMode:false,note:60,microtune:new Float32Array(128)};
+
+// Buchla 259-inspired wavefolder — smooth multi-fold transfer curve at 16k resolution.
+// The curve is the input drive applied to the source (preFold gain), then a sin-based
+// fold with mild asymmetry for even-harmonic content, then soft tanh saturation.
+function foldCurve(amount){
+ const n=16384, c=new Float32Array(n);
+ const asym=0.18;
+ for(let i=0;i<n;i++){
+  const x=(i/(n-1))*2-1;
+  // sin-fold around zero. As x's magnitude grows (driven by preFold gain),
+  // the sin produces multiple fold cycles, generating harmonics — same idea as
+  // a real folder where peaks beyond rails get inverted.
+  let y = Math.sin(Math.PI*x);
+  // mild even-harmonic asymmetry (Buchla character)
+  y = y - asym*y*y*Math.sign(y);
+  // soft saturation — keep peaks under control without harsh clipping
+  c[i] = Math.tanh(y*1.15);
+ }
+ return c;
+}
+
+function pinkNoiseBuffer(ctx,sec){
+ const buf=ctx.createBuffer(1,ctx.sampleRate*sec,ctx.sampleRate),d=buf.getChannelData(0);
+ let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+ for(let i=0;i<d.length;i++){
+  const w=Math.random()*2-1;
+  b0=.99886*b0+w*.0555179; b1=.99332*b1+w*.0750759; b2=.969*b2+w*.153852;
+  b3=.8665*b3+w*.3104856; b4=.55*b4+w*.5329522; b5=-.7616*b5-w*.016898;
+  d[i]=(b0+b1+b2+b3+b4+b5+b6+w*.5362)*.11;
+  b6=w*.115926;
+ }
+ return buf;
+}
+
+function buildAudio(){
+ if(AU.ctx) return;
+ AU.ctx=new (window.AudioContext||window.webkitAudioContext)();
+ const c=AU.ctx;
+ // master chain: HPF → Compressor → output Gain → destination
+ // The HPF removes inaudible rumble below ~30 Hz that can suck up headroom.
+ // The compressor glues transients and makes the whole instrument feel "produced".
+ AU.master=c.createGain(); AU.master.gain.value=STATE.knobs['k.volume']||0.7;
+ const hp=c.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=28; hp.Q.value=0.5;
+ const comp=c.createDynamicsCompressor();
+ comp.threshold.value=-14; comp.knee.value=8; comp.ratio.value=3.2; comp.attack.value=0.006; comp.release.value=0.18;
+ // subtle saturation via WaveShaperNode (a soft tanh) for warmth
+ const sat=c.createWaveShaper();
+ {const N=2048, cu=new Float32Array(N);
+  for(let i=0;i<N;i++){const x=(i/(N-1))*2-1; cu[i]=Math.tanh(x*1.4);}
+  sat.curve=cu; sat.oversample='2x';}
+ AU.master.connect(hp); hp.connect(sat); sat.connect(comp); comp.connect(c.destination);
+ AU.mfx={hp,sat,comp};
+ // SOURCE: carrier + modulator + FM + wavefolder
+ const car=c.createOscillator(),mod=c.createOscillator();
+ car.type='triangle'; mod.type='triangle';
+ car.frequency.value=220; mod.frequency.value=220;
+ const md=c.createGain(); md.gain.value=0;  // FM depth
+ mod.connect(md); md.connect(car.frequency);
+ // Drive stage BEFORE the wavefolder — this is how analog folders actually work.
+ // More input gain = more aggressive folding. CV inputs modulate this gain.
+ const preFold=c.createGain(); preFold.gain.value=1 + (STATE.knobs['k.fold']||0)*4;
+ const fold=c.createWaveShaper(); fold.curve=foldCurve(0.6);
+ fold.oversample='4x';
+ const sOut=c.createGain(); sOut.gain.value=0.6;
+ car.connect(preFold); preFold.connect(fold); fold.connect(sOut);
+ car.start(); mod.start();
+ AU.src={car,mod,md,preFold,fold,out:sOut,ratio:1};
+ // CLOCK — ConstantSourceNodes for divisions
+ const mk=()=>{const n=c.createConstantSource();n.offset.value=0;n.start();return n;};
+ AU.clk={pulse:mk(),div2:mk(),div3:mk(),div4:mk(),gate:mk(),pitch:mk(),counter:0,timer:null};
+ // WOGGLE — pink noise + S&H
+ const noise=c.createBufferSource(); noise.buffer=pinkNoiseBuffer(c,2); noise.loop=true; noise.start();
+ AU.wog={noise,stepped:mk(),smooth:mk()};
+ // FUNCTIONS (env constants)
+ AU.f1={env:mk(),inv:mk(),endT:mk()};
+ AU.f2={env:mk(),inv:mk(),endT:mk()};
+ // DUAL LPG (LPF + VCA per side, mix outs)
+ const mkLPG=()=>{
+  const inG=c.createGain(); inG.gain.value=1;
+  const f=c.createBiquadFilter(); f.type='lowpass'; f.frequency.value=80; f.Q.value=2;
+  const v=c.createGain(); v.gain.value=0;   // closed by default — no constant tone
+  inG.connect(f); f.connect(v);
+  return {inG,f,v};
+ };
+ const A=mkLPG(),B=mkLPG();
+ const mixP=c.createGain(),mixM=c.createGain();
+ const bxc=c.createGain(); bxc.gain.value=0;
+ const bxcI=c.createGain(); bxcI.gain.value=0;
+ A.v.connect(mixP); A.v.connect(mixM);
+ B.v.connect(bxc); B.v.connect(bxcI);
+ bxc.connect(mixP); bxcI.connect(mixM);
+ const lpgOut=c.createGain();
+ mixP.connect(lpgOut);
+ AU.lpg={A,B,bxc,bxcI,mixP,mixM,out:lpgOut};
+ // SPACE OUT — convolution reverb + delay tap (BBD-style darkness)
+ const fxIn=c.createGain(), dry=c.createGain(), wet=c.createGain();
+ dry.gain.value=0.85; wet.gain.value=(STATE.knobs['k.amount']||0.4)*0.6;
+ // Convolution reverb — denser, longer IR with proper early reflections + diffuse tail.
+ // Total length ≈ 2.6 s, exponential decay, channels slightly decorrelated for stereo width.
+ const irSec=2.6, irLen=Math.floor(c.sampleRate*irSec);
+ const ir=c.createBuffer(2,irLen,c.sampleRate);
+ // Some scattered early-reflection delay times (in ms), one per cluster
+ const earlyMs=[7,11,17,23,31,41,53,67,79,97,113,127];
+ for(let ch=0;ch<2;ch++){
+  const d=ir.getChannelData(ch);
+  const phase=ch?0.5:0;   // L/R offset for width
+  for(let i=0;i<irLen;i++){
+   const t=i/c.sampleRate;
+   const env=Math.exp(-t*2.2);            // exponential decay
+   const earlyEnv=Math.exp(-t*15);        // short envelope for ERs
+   // Diffuse tail = dense filtered noise
+   const noise=(Math.random()*2-1)*env*0.32;
+   // Early reflections — sharper, ramped down
+   let er=0;
+   for(const ms of earlyMs){
+    const idx=Math.floor((ms+phase*3)*c.sampleRate/1000);
+    if(i===idx) er = ((Math.random()*2-1)*0.6) * earlyEnv;
+   }
+   d[i]=noise+er;
+  }
+  // simple smoothing pass to reduce zipper noise
+  for(let i=2;i<irLen;i++){ d[i]=0.6*d[i]+0.2*d[i-1]+0.2*d[i-2]; }
+ }
+ const conv=c.createConvolver(); conv.buffer=ir;
+ const revLP=c.createBiquadFilter(); revLP.type='lowpass'; revLP.frequency.value=3200; // dark tail
+ // short slap-back delay for BBD character
+ const delay=c.createDelay(0.5); delay.delayTime.value=0.09;
+ const fb=c.createGain(); fb.gain.value=0.35;
+ const dlp=c.createBiquadFilter(); dlp.type='lowpass'; dlp.frequency.value=2400;
+ delay.connect(fb); fb.connect(dlp); dlp.connect(delay);
+ fxIn.connect(dry);
+ fxIn.connect(conv); conv.connect(revLP); revLP.connect(wet);
+ fxIn.connect(delay); delay.connect(wet);
+ const fxOut=c.createGain();
+ dry.connect(fxOut); wet.connect(fxOut);
+ AU.fx={in:fxIn,out:fxOut,dry,wet,delay,conv};
+ // Default internal routing: SOURCE → LPG A → mix → FX → master
+ AU.src.out.connect(AU.lpg.A.inG);
+ AU.lpg.out.connect(AU.fx.in);
+ AU.fx.out.connect(AU.master);
+ mapJacks();
+ startClock();
+ // Apply current knob values
+ for(const k of KNOBS) onAudioKnob(k.id, STATE.knobs[k.id]);
+}
+
+function mapJacks(){
+ const j=AU.jacks, A=AU.lpg.A, B=AU.lpg.B;
+ // SOURCE
+ j['src.carrier']={out:AU.src.out};
+ j['src.mod_out']={out:AU.src.mod};
+ j['src.pitch_in']={inParam:AU.src.car.frequency, scale:600};
+ j['src.mod_in']={inParam:AU.src.md.gain, scale:800};
+ j['src.ratio_in']={inParam:AU.src.mod.detune, scale:1200};   // ±1200 cents = ±1 octave
+ j['src.fold_in']={inParam:AU.src.preFold.gain, scale:4};
+ // CLOCK
+ j['clk.pulse']={out:AU.clk.pulse};
+ j['clk.div2']={out:AU.clk.div2};
+ j['clk.div3']={out:AU.clk.div3};
+ j['clk.div4']={out:AU.clk.div4};
+ j['clk.gate']={out:AU.clk.gate};
+ j['clk.pitch']={out:AU.clk.pitch};
+ // WOGGLE
+ j['wog.trig']={inParam:null, trigger:sampleWoggle};
+ j['wog.noise']={inParam:null};
+ j['wog.stepped']={out:AU.wog.stepped};
+ j['wog.smooth']={out:AU.wog.smooth};
+ // FUNCTIONS
+ j['fn1.gate']={inParam:null, trigger:()=>triggerFn(1)};
+ j['fn1.attack']={inParam:null};
+ j['fn1.release']={inParam:null};
+ j['fn1.pos']={out:AU.f1.env};
+ j['fn1.inv']={out:AU.f1.inv};
+ j['fn1.end']={out:AU.f1.endT};
+ j['fn2.trig']={inParam:null, trigger:()=>triggerFn(2)};
+ j['fn2.shape']={inParam:null};
+ j['fn2.time']={inParam:null};
+ j['fn2.pos']={out:AU.f2.env};
+ j['fn2.inv']={out:AU.f2.inv};
+ j['fn2.end']={out:AU.f2.endT};
+ // DUAL LPG
+ j['lpg.a_in']={in:A.inG};
+ j['lpg.a_lvl']={inParam:A.v.gain, scale:0.6, filterParam:A.f.frequency, filterScale:6000};
+ j['lpg.a_out']={out:A.v};
+ j['lpg.b_in']={in:B.inG};
+ j['lpg.b_lvl']={inParam:B.v.gain, scale:0.6, filterParam:B.f.frequency, filterScale:6000};
+ j['lpg.b_out']={out:B.v};
+ j['lpg.mix_a']={in:A.inG};
+ j['lpg.mix_b']={in:B.inG};
+ j['lpg.mix_c']={inParam:AU.lpg.bxc.gain, scale:1};
+ j['lpg.mix_p']={out:AU.lpg.mixP};
+ j['lpg.mix_m']={out:AU.lpg.mixM};
+ // SPACE OUT
+ j['rev.in']={in:AU.fx.in};
+ j['rev.amt']={inParam:AU.fx.wet.gain, scale:0.8};
+ j['rev.out']={out:AU.fx.out};
+ // CV-IN, audio_in: stubs
+ j['cvin.1']={out:null};
+ j['cvin.2']={out:null};
+ j['audio_in']={in:AU.lpg.A.inG};
+ // SPLIT: passive — handled by connecting input to both outputs
+ // (skipped; cables manage routing visually)
+}
+
+function startClock(){
+ if(AU.clk.timer) return;
+ const tick=()=>{
+  if(!AU.ctx) return;
+  const t=AU.ctx.currentTime;
+  const bpm=56 + (STATE.knobs['k.clock']||0.4)*184;
+  const interval=60/bpm/4; // 16th notes
+  const pl=0.012;
+  AU.clk.pulse.offset.setValueAtTime(1,t);
+  AU.clk.pulse.offset.setValueAtTime(0,t+pl);
+  AU.clk.counter++;
+  if(AU.clk.counter%2===0){AU.clk.div2.offset.setValueAtTime(1,t);AU.clk.div2.offset.setValueAtTime(0,t+pl);}
+  if(AU.clk.counter%3===0){AU.clk.div3.offset.setValueAtTime(1,t);AU.clk.div3.offset.setValueAtTime(0,t+pl);}
+  if(AU.clk.counter%4===0){AU.clk.div4.offset.setValueAtTime(1,t);AU.clk.div4.offset.setValueAtTime(0,t+pl);}
+  // Check for cables from clock outputs to FUNCTION/WOGGLE triggers
+  checkClockTriggers();
+  AU.clk.timer=setTimeout(tick, interval*1000);
+ };
+ AU.clk.timer=setTimeout(tick, 100);
+}
+function stopClock(){
+ if(AU.clk && AU.clk.timer){ clearTimeout(AU.clk.timer); AU.clk.timer=null; }
+}
+
+function checkClockTriggers(){
+ // For each cable whose source is a clock division, fire trigger destination
+ for(const c of STATE.cables){
+  const sj=AU.jacks[c.a], dj=AU.jacks[c.b];
+  const aIsClk = ['clk.pulse','clk.div2','clk.div3','clk.div4','clk.gate'].includes(c.a);
+  const bIsClk = ['clk.pulse','clk.div2','clk.div3','clk.div4','clk.gate'].includes(c.b);
+  if(aIsClk && dj && dj.trigger){
+   // Only fire on the appropriate counter beat
+   const ok = c.a==='clk.pulse' || (c.a==='clk.div2' && AU.clk.counter%2===0) || (c.a==='clk.div3' && AU.clk.counter%3===0) || (c.a==='clk.div4' && AU.clk.counter%4===0) || c.a==='clk.gate';
+   if(ok) dj.trigger();
+  }
+  if(bIsClk && sj && sj.trigger){
+   const ok = c.b==='clk.pulse' || (c.b==='clk.div2' && AU.clk.counter%2===0) || (c.b==='clk.div3' && AU.clk.counter%3===0) || (c.b==='clk.div4' && AU.clk.counter%4===0) || c.b==='clk.gate';
+   if(ok) sj.trigger();
+  }
+ }
+}
+
+function sampleWoggle(){
+ if(!AU.wog) return;
+ const v=(Math.random()*2-1)*0.8;
+ const t=AU.ctx.currentTime;
+ AU.wog.stepped.offset.setValueAtTime(v,t);
+ AU.wog.smooth.offset.cancelScheduledValues(t);
+ AU.wog.smooth.offset.linearRampToValueAtTime(v, t+0.08);
+}
+
+function triggerFn(n){
+ const f=AU['f'+n]; if(!f) return;
+ const t=AU.ctx.currentTime;
+ const longMult = AU.longMode ? 3 : 1;
+ let attack, hold=0, release;
+ if(n===1){
+  attack  = Math.max(0.002, (STATE.knobs['k.attack']||0.1)*0.6) * longMult;
+  hold    = 0.005 * longMult;
+  release = Math.max(0.02, (STATE.knobs['k.release']||0.4)*1.6) * longMult;
+ } else {
+  const shape=STATE.knobs['k.shape']||0.5, time=(0.05 + (STATE.knobs['k.time']||0.3)*2.5)*longMult;
+  attack = Math.max(0.005, time*shape);
+  release = Math.max(0.005, time*(1-shape));
+ }
+ // Linear attack, exponential release (analog AHR shape)
+ const relTau = release/4;
+ f.env.offset.cancelScheduledValues(t);
+ f.env.offset.setValueAtTime(0,t);
+ f.env.offset.linearRampToValueAtTime(1, t+attack);
+ f.env.offset.setTargetAtTime(0, t+attack+hold, relTau);
+ f.inv.offset.cancelScheduledValues(t);
+ f.inv.offset.setValueAtTime(0,t);
+ f.inv.offset.linearRampToValueAtTime(-1, t+attack);
+ f.inv.offset.setTargetAtTime(0, t+attack+hold, relTau);
+ // NORMALLED: Function 1 drives LPG A (opens both filter and VCA)
+ if(n===1 && AU.lpg){
+  const lpgGain=AU.lpg.A.v.gain, lpgFreq=AU.lpg.A.f.frequency;
+  const peakGain=0.75;
+  const baseHz = 40 * Math.pow(2, (STATE.knobs['k.cutoffA']||0.7)*9.5);
+  lpgGain.cancelScheduledValues(t);
+  lpgGain.setValueAtTime(0,t);
+  lpgGain.linearRampToValueAtTime(peakGain, t+attack);
+  lpgGain.setTargetAtTime(0, t+attack+hold, relTau);
+  lpgFreq.cancelScheduledValues(t);
+  lpgFreq.setValueAtTime(60,t);
+  lpgFreq.linearRampToValueAtTime(baseHz, t+attack);
+  lpgFreq.setTargetAtTime(60, t+attack+hold, relTau);
+ }
+ // End-trig pulse after envelope effectively ends, plus self-cycling check
+ setTimeout(()=>{
+  if(!AU.ctx) return;
+  const tt=AU.ctx.currentTime;
+  f.endT.offset.setValueAtTime(1,tt);
+  f.endT.offset.setValueAtTime(0,tt+0.012);
+  for(const c of STATE.cables){
+   const otherEnd = c.a===`fn${n}.end` ? c.b : (c.b===`fn${n}.end` ? c.a : null);
+   if(!otherEnd) continue;
+   if(otherEnd===`fn${n}.gate` || otherEnd===`fn${n}.trig`) setTimeout(()=>triggerFn(n), 5);
+   const j=AU.jacks[otherEnd];
+   if(j && j.trigger && otherEnd!==`fn${n}.gate` && otherEnd!==`fn${n}.trig`) j.trigger();
+  }
+ }, (attack+hold+release)*1000);
+}
+
+function rebuildCables(){
+ if(!AU.ctx) return;
+ // Disconnect everything we previously connected via cables
+ for(const item of AU.conns){
+  try{ item.src.disconnect(item.dst); }catch(e){}
+  if(item.scaleNode){ try{ item.scaleNode.disconnect(); }catch(e){} }
+ }
+ AU.conns=[];
+ for(const c of STATE.cables){
+  let sj=AU.jacks[c.a], dj=AU.jacks[c.b];
+  if(!sj || !dj) continue;
+  // Decide which side is source (has 'out') and which is destination
+  let srcSide, dstSide;
+  if(sj.out){ srcSide=sj; dstSide=dj; }
+  else if(dj.out){ srcSide=dj; dstSide=sj; }
+  else continue;
+  const srcNode = srcSide.out;
+  // Destination can be an audio node ('in') OR an AudioParam ('inParam')
+  const dstParams = [];
+  if(dstSide.in)        dstParams.push({node:dstSide.in, scale:1});
+  if(dstSide.inParam)   dstParams.push({node:dstSide.inParam, scale:dstSide.scale||1});
+  // Some inputs (LPG level) also modulate the filter freq alongside the VCA
+  if(dstSide.filterParam) dstParams.push({node:dstSide.filterParam, scale:dstSide.filterScale||1});
+  for(const d of dstParams){
+   try{
+    if(d.scale === 1){
+     srcNode.connect(d.node);
+     AU.conns.push({src:srcNode, dst:d.node});
+    } else {
+     // Insert a scaling gain so CV at value v drives the param by v*scale
+     const g = AU.ctx.createGain(); g.gain.value = d.scale;
+     srcNode.connect(g);
+     g.connect(d.node);
+     AU.conns.push({src:srcNode, dst:g, scaleNode:g});
+     AU.conns.push({src:g, dst:d.node});
+    }
+   }catch(e){ /* incompatible types — silent */ }
+  }
+ }
+}
+
+function onAudioKnob(kid, v){
+ if(!AU.ctx) return;
+ const s=AU.src, lpg=AU.lpg, fx=AU.fx;
+ if(kid==='k.ratio'){
+  const ratios=[0.25,0.5,1,2,3,4];
+  s.ratio = ratios[Math.round(v*5)];
+  s.mod.frequency.value = s.car.frequency.value * s.ratio;
+ } else if(kid==='k.mod'){
+  s.md.gain.value = v*1200;
+ } else if(kid==='k.fold'){
+  s.preFold.gain.value = 1 + v*5;   // drive the wavefolder harder for more harmonics
+ } else if(kid==='k.cutoffA'){
+  lpg.A.f.frequency.value = 40 * Math.pow(2, v*10);
+ } else if(kid==='k.cutoffB'){
+  lpg.B.f.frequency.value = 40 * Math.pow(2, v*10);
+ } else if(kid==='k.c'){
+  lpg.bxc.gain.value = v;
+  lpg.bxcI.gain.value = -v;
+ } else if(kid==='k.amount'){
+  fx.wet.gain.value = v*0.8;
+  fx.dry.gain.value = 1 - v*0.4;
+ } else if(kid==='k.volume'){
+  AU.master.gain.value = v;
+ } else if(kid==='k.attack' || kid==='k.release' || kid==='k.shape' || kid==='k.time'){
+  // used at trigger time, no live update needed
+ }
+ // CLOCK knob handled in startClock tick (reads current value each time)
+}
+
+function setPitchFromMidi(midi){
+ if(!AU.src) return;
+ const f = 440 * Math.pow(2, (midi-69)/12);
+ // Per-note microtune: each MIDI key has its own stored detune offset (cents)
+ const detune = AU.microtune[midi] || 0;
+ AU.src.car.frequency.value = f;
+ AU.src.car.detune.value = detune;
+ AU.src.mod.frequency.value = f * AU.src.ratio;
+ AU.src.mod.detune.value = detune;
+}
+
+// ---- Play / Stop button ----
+function startAudio(){
+ buildAudio();
+ if(AU.ctx.state==='suspended') AU.ctx.resume();
+ AU.on=true;
+ $('#btn-play').textContent='⏻ OFF';
+ $('#btn-play').classList.remove('red');
+ rebuildCables();
+ setStatus('audio engine on — keyboard plays notes; spacebar toggles sequencer');
+}
+function stopAudio(){
+ if(!AU.on) return;
+ if(AU.ctx) AU.ctx.suspend();
+ AU.on=false;
+ stopClock();
+ $('#btn-play').textContent='⏻ ON';
+ $('#btn-play').classList.add('red');
+ setStatus('audio engine off');
+}
+$('#btn-play').addEventListener('click', ()=>{ AU.on ? stopAudio() : startAudio(); });
+
+// ---- Hook into existing knob updates ----
+const _oldUpdateKnob = updateKnob;
+updateKnob = function(k,g){ _oldUpdateKnob(k,g); if(AU.on) onAudioKnob(k.id, STATE.knobs[k.id]); };
+
+// ---- Hook into cable changes ----
+const _oldDrawCables = drawCables;
+drawCables = function(){ _oldDrawCables(); if(AU.on) rebuildCables(); };
+
+
+
+// ---- Keyboard input (scales, octaves, function triggers) ----
+const KEY_DEGREES={
+ 'a':0,'w':1,'s':2,'e':3,'d':4,'f':5,'t':6,'g':7,'y':8,'h':9,'u':10,'j':11,
+ 'k':12,'o':13,'l':14,'p':15,';':16,"'":17
+};
+const SCALES={
+ chroma:[0,1,2,3,4,5,6,7,8,9,10,11],
+ major: [0,2,4,5,7,9,11],
+ dorian:[0,2,3,5,7,9,10],
+ phryg: [0,1,3,5,7,8,10],
+ lydian:[0,2,4,6,7,9,11],
+ mixo:  [0,2,4,5,7,9,10],
+ minor: [0,2,3,5,7,8,10],
+ locri: [0,1,3,5,6,8,10],
+};
+AU.scale='chroma'; AU.octave=4; AU.tonic=0;
+function midiFromKey(k){
+ const deg=KEY_DEGREES[k]; if(deg===undefined) return null;
+ if(AU.scale==='chroma') return 12*AU.octave + AU.tonic + deg;
+ const wk=['a','s','d','f','g','h','j','k','l',';',"'"];
+ const i=wk.indexOf(k); if(i<0) return null;
+ const sc=SCALES[AU.scale];
+ return 12*(AU.octave + Math.floor(i/sc.length)) + AU.tonic + sc[i % sc.length];
+}
+const SCALE_KEYS={'3':'major','4':'dorian','5':'phryg','6':'lydian','7':'mixo','8':'minor','9':'locri'};
+// Step through the currently-selected scale (or chromatic if 'chroma').
+// dir=+1 walks up by one scale degree, dir=-1 down.
+function snapStepInScale(midi, dir){
+ const tonic = AU.tonic||0;
+ if(AU.scale==='chroma' || !SCALES[AU.scale]) return Math.max(0,Math.min(127,midi+dir));
+ const sc = SCALES[AU.scale]; let m = midi + dir;
+ while(m>=0 && m<=127){
+  const pc = ((m - tonic) % 12 + 12) % 12;
+  if(sc.indexOf(pc)>=0) return m;
+  m += dir;
+ }
+ return midi;
+}
+function previewSeqNote(m){ if(AU.on){ setPitchFromMidi(m); triggerFn(1); } }
+function toggleSeqRec(){
+ SEQ.recording=!SEQ.recording;
+ const r=document.getElementById('seq-rec');
+ if(r) r.classList.toggle('active', SEQ.recording);
+ setStatus(SEQ.recording?'recording — play notes to fill steps':'recording off');
+}
+
+window.addEventListener('keydown', e=>{
+ if(e.repeat) return;
+ const tag=document.activeElement && document.activeElement.tagName;
+ if(tag==='INPUT'||tag==='TEXTAREA') return;
+ const k=e.key.toLowerCase(), raw=e.key;
+ if(!AU.on && k in KEY_DEGREES) return;
+ if(k in KEY_DEGREES){
+  e.preventDefault();
+  const m=midiFromKey(k);
+  if(m!=null && m>=0 && m<128){ setPitchFromMidi(m); triggerFn(1); }
+ } else if(k===' '){
+  // Spacebar starts / stops the sequencer (auto-starts audio if needed)
+  e.preventDefault();
+  if(!AU.on){ const pb=document.getElementById('btn-play'); if(pb) pb.click(); }
+  toggleSeqPlay();
+ } else if(raw==='`' || raw==='~'){
+  // Backtick toggles live-record on the sequencer
+  e.preventDefault(); toggleSeqRec();
+ } else if(raw==='ArrowLeft'){
+  e.preventDefault(); SEQ.cursor=(SEQ.cursor-1+SEQ.length)%SEQ.length; renderSteps();
+ } else if(raw==='ArrowRight'){
+  e.preventDefault(); SEQ.cursor=(SEQ.cursor+1)%SEQ.length; renderSteps();
+ } else if(raw==='ArrowUp'){
+  e.preventDefault();
+  const cur=(SEQ.notes[SEQ.cursor]!=null)?SEQ.notes[SEQ.cursor]:60;
+  const next=snapStepInScale(cur,+1);
+  SEQ.notes[SEQ.cursor]=next;
+  if(!SEQ.steps[SEQ.cursor]) SEQ.steps[SEQ.cursor]=true;  // activate step automatically
+  previewSeqNote(next); renderSteps();
+ } else if(raw==='ArrowDown'){
+  e.preventDefault();
+  const cur=(SEQ.notes[SEQ.cursor]!=null)?SEQ.notes[SEQ.cursor]:60;
+  const next=snapStepInScale(cur,-1);
+  SEQ.notes[SEQ.cursor]=next;
+  if(!SEQ.steps[SEQ.cursor]) SEQ.steps[SEQ.cursor]=true;
+  previewSeqNote(next); renderSteps();
+ } else if(k==='-'){
+  // Toggle current sequencer step on/off
+  SEQ.steps[SEQ.cursor]=!SEQ.steps[SEQ.cursor];
+  if(SEQ.steps[SEQ.cursor] && AU.lastNote!=null) SEQ.notes[SEQ.cursor]=AU.lastNote;
+  renderSteps();
+ } else if(k==='='){
+  // Silent step — leave current step off and advance cursor (a rest)
+  SEQ.steps[SEQ.cursor]=false;
+  SEQ.cursor=(SEQ.cursor+1)%SEQ.length;
+  renderSteps();
+ } else if(k==='z'){ AU.octave=Math.max(0,AU.octave-1); setStatus('octave '+AU.octave); }
+ else if(k==='x'){ AU.octave=Math.min(8,AU.octave+1); setStatus('octave '+AU.octave); }
+ else if(k in SCALE_KEYS){ AU.scale=SCALE_KEYS[k]; setStatus('scale: '+AU.scale); }
+ else if(k==='c'){ AU.scale='chroma'; setStatus('scale: chroma'); }
+ else if(k==='1'){ AU.longMode=!AU.longMode; setStatus('long mode '+(AU.longMode?'ON':'OFF')); }
+ else if(k==='2'){
+  if(e.shiftKey){ AU.microtune.fill(0); setStatus('microtune cleared (12-TET restored)'); }
+  else { for(let i=0;i<128;i++) AU.microtune[i]=(Math.random()*2-1)*50; setStatus('microtune randomized'); }
+ } else if(k==='0'){
+  if(AU.src){ AU.src.md.gain.cancelScheduledValues(AU.ctx.currentTime); AU.src.md.gain.setValueAtTime(0,AU.ctx.currentTime); }
+  setStatus('panic — modulation silenced');
+ }
 });
 
-setTheme('A');renderList();setStatus('ready');
+// Wire up the collapsible info-bar tabs (Patching / Sequencer / Keyboard)
+document.querySelectorAll('.info-tab').forEach(btn=>{
+ btn.addEventListener('click', ()=>{
+  const tgt = btn.dataset.panel;
+  const panel = document.getElementById('info-'+tgt);
+  const willOpen = !panel.classList.contains('open');
+  document.querySelectorAll('.info-panel').forEach(p=>p.classList.remove('open'));
+  document.querySelectorAll('.info-tab').forEach(t=>t.classList.remove('active'));
+  if(willOpen){
+   panel.classList.add('open'); btn.classList.add('active');
+   // Position the arrow tip under the active tab button
+   const bar = document.querySelector('.info-bar');
+   const bRect = btn.getBoundingClientRect(); const pRect = bar.getBoundingClientRect();
+   const arrowX = bRect.left - pRect.left + bRect.width/2 - 7; // 7 = half arrow width
+   panel.style.setProperty('--arrow-x', arrowX + 'px');
+  }
+ });
+});
+// Clicking outside the info bar closes any open panel
+document.addEventListener('click', e=>{
+ if(e.target.closest('.info-bar')) return;
+ document.querySelectorAll('.info-panel').forEach(p=>p.classList.remove('open'));
+ document.querySelectorAll('.info-tab').forEach(t=>t.classList.remove('active'));
+});
+
+// =====================================================================
+// SEQUENCER — Volca-style step buttons, expandable beyond 16 steps
+// =====================================================================
+const SEQ={steps:new Array(16).fill(false), notes:new Array(16).fill(60),
+           length:16, cursor:0, playing:false, recording:false, lastStep:-1, lastNote:60};
+function buildSeqUI(){
+ const main=document.querySelector('main');
+ const wrap=document.createElement('div');
+ wrap.id='sequencer';
+ const TBQ = String.fromCharCode(96); // backtick character (kept out of the template)
+ wrap.innerHTML =
+  '<div class="seq-transport">'+
+   '<button class="seq-btn seq-play" id="seq-play" title="Play/stop (Space)">&#9654;</button>'+
+   '<button class="seq-btn seq-rec" id="seq-rec" title="Toggle live recording ('+TBQ+') &mdash; play notes to fill steps">REC</button>'+
+   '<button class="seq-btn seq-mem" id="seq-mem" title="Clear">CLEAR</button>'+
+   '<button class="seq-btn seq-minus" id="seq-minus" title="-16 steps">&minus;16</button>'+
+   '<button class="seq-btn seq-func" id="seq-func" title="+16 steps">+16</button>'+
+   '<span class="seq-len">Len <input id="seq-len-input" type="number" min="1" max="64" value="16"></span>'+
+  '</div>'+
+  '<div class="seq-steps" id="seq-steps"></div>';
+ document.querySelector('main').insertBefore(wrap, document.querySelector('.info-bar'));
+ renderSteps();
+ document.getElementById('seq-play').addEventListener('click', toggleSeqPlay);
+ document.getElementById('seq-rec').addEventListener('click', toggleSeqRec);
+ document.getElementById('seq-mem').addEventListener('click', ()=>{
+  SEQ.steps.fill(false); SEQ.notes.fill(60); renderSteps(); setStatus('sequence cleared');
+ });
+ document.getElementById('seq-func').addEventListener('click', ()=>setSeqLength(SEQ.length+16));
+ document.getElementById('seq-minus').addEventListener('click', ()=>setSeqLength(SEQ.length-16));
+ const li=document.getElementById('seq-len-input');
+ li.addEventListener('change', ()=>setSeqLength(parseInt(li.value,10)));
+}
+function setSeqLength(n){
+ n=Math.max(1,Math.min(64,n|0));
+ SEQ.length=n; SEQ.steps.length=n; SEQ.notes.length=n;
+ for(let i=0;i<n;i++){
+  if(SEQ.steps[i]===undefined) SEQ.steps[i]=false;
+  if(SEQ.notes[i]===undefined) SEQ.notes[i]=60;
+ }
+ if(SEQ.cursor>=n) SEQ.cursor=n-1;
+ const inp=document.getElementById('seq-len-input'); if(inp) inp.value=n;
+ renderSteps();
+}
+function renderSteps(){
+ const c=document.getElementById('seq-steps'); if(!c) return; c.innerHTML='';
+ for(let i=0;i<SEQ.length;i++){
+  const b=document.createElement('button');
+  b.className='step '+((i%2===0)?'red':'white');
+  b.dataset.step=i; b.textContent=(i+1);
+  if(SEQ.steps[i]) b.classList.add('on');
+  if(i===SEQ.cursor) b.classList.add('cur');
+  b.addEventListener('click',()=>{
+   SEQ.cursor=i;
+   SEQ.steps[i]=!SEQ.steps[i];
+   if(SEQ.steps[i] && AU.lastNote!=null) SEQ.notes[i]=AU.lastNote;
+   renderSteps();
+  });
+  c.appendChild(b);
+ }
+}
+function toggleSeqPlay(){
+ SEQ.playing=!SEQ.playing;
+ const b=document.getElementById('seq-play'); if(b) b.classList.toggle('active',SEQ.playing);
+ setStatus(SEQ.playing?'seq playing':'seq stopped');
+ renderSteps();
+}
+const _origStartClock = startClock;
+startClock = function(){
+ if(AU.clk && AU.clk.timer) return;
+ const tick=()=>{
+  if(!AU.ctx) return;
+  const t=AU.ctx.currentTime, bpm=56+(STATE.knobs['k.clock']||0.348)*184, interval=60/bpm/4, pl=0.012;
+  AU.clk.pulse.offset.setValueAtTime(1,t); AU.clk.pulse.offset.setValueAtTime(0,t+pl);
+  AU.clk.counter++;
+  if(AU.clk.counter%2===0){AU.clk.div2.offset.setValueAtTime(1,t);AU.clk.div2.offset.setValueAtTime(0,t+pl);}
+  if(AU.clk.counter%3===0){AU.clk.div3.offset.setValueAtTime(1,t);AU.clk.div3.offset.setValueAtTime(0,t+pl);}
+  if(AU.clk.counter%4===0){AU.clk.div4.offset.setValueAtTime(1,t);AU.clk.div4.offset.setValueAtTime(0,t+pl);}
+  checkClockTriggers();
+  if(SEQ.playing){
+   SEQ.cursor=(SEQ.cursor+1)%SEQ.length;
+   if(SEQ.steps[SEQ.cursor]){ setPitchFromMidi(SEQ.notes[SEQ.cursor]); triggerFn(1); }
+   renderSteps();
+  }
+  AU.clk.timer=setTimeout(tick, interval*1000);
+ };
+ AU.clk.timer=setTimeout(tick, 100);
+};
+const _origSetPitch = setPitchFromMidi;
+setPitchFromMidi = function(m){
+ _origSetPitch(m); AU.lastNote=m;
+ if(SEQ.recording){
+  SEQ.steps[SEQ.cursor]=true;
+  SEQ.notes[SEQ.cursor]=m;
+  SEQ.cursor=(SEQ.cursor+1)%SEQ.length;
+  renderSteps();
+ } else if(!SEQ.playing && SEQ.steps[SEQ.cursor]){
+  SEQ.notes[SEQ.cursor]=m;
+  renderSteps();
+ }
+};
+buildSeqUI();
+
 </script>
-</body></html>
-/body></html>
 </body></html>
